@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -54,7 +53,6 @@ public class ShareFragment extends Fragment {
         uploadImage = rootView.findViewById(R.id.uploadImage);
         progressBar = rootView.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-
 
         // Initialize Firebase references
         databaseReference = FirebaseDatabase.getInstance().getReference("Images");
