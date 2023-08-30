@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter(Context context, ArrayList<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
+    }
+    public void setFilteredList(ArrayList<DataClass> filteredList){
+        this.dataList = filteredList;
+        notifyDataSetChanged();
     }
     @NonNull
     @Override
