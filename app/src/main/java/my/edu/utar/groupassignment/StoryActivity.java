@@ -154,7 +154,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
         });
     }
 
-        private void userInfo(String userid){
+    private void userInfo(String userid){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users")
                 .child(userid);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
