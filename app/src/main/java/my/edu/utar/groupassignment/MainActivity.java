@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HomeFragment()).commit();
                 break;
+            case R.id.nav_chat:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ChatFragment()).commit();
+                break;
             case R.id.nav_travel:
                 startActivity(new Intent(MainActivity.this, TravelActivity.class));
                 break;

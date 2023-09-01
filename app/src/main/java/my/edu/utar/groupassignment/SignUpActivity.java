@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -61,8 +62,9 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                HelperClass helperClass = new HelperClass(name, email, username, password);
-                                reference.child(username).setValue(helperClass);
+                                String userId = FirebaseAuth.getInstance().getUid();
+                                HelperClass helperClass = new HelperClass(userId, name, username, email);
+                                reference.child(userId).setValue(helperClass);
                                 Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                             } else {

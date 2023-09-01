@@ -1,7 +1,26 @@
 package my.edu.utar.groupassignment;
 
+
 public class HelperClass {
-    String name, email, username, password;
+    String userID, name, email, username;
+
+    public HelperClass(String userID, String name, String username, String email) {
+        this.userID = userID;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+    }
+
+    public HelperClass() {
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public String getName() {
         return name;
@@ -25,23 +44,5 @@ public class HelperClass {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public HelperClass(String name, String email, String username, String password) {
-        this.name = name;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-    }
-
-    public HelperClass() {
     }
 }

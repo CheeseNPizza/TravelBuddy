@@ -3,6 +3,7 @@
     package="my.edu.utar.groupassignment">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,31 +16,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GroupAssignment">
-
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
         <activity
             android:name=".SignUpActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".AddStoryActivity"
             android:exported="false" />
-
         <activity
             android:name=".StoryActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
             <!-- Remove the intent-filter for LAUNCHER category from MainActivity -->
         </activity>
-
         <activity
             android:name=".IntroActivity"
             android:exported="true">
@@ -54,8 +52,7 @@
             android:exported="false" />
         <activity
             android:name=".TravelActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>
