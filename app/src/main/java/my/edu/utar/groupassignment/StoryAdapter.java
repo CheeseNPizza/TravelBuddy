@@ -196,8 +196,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
                 int i = 0;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if(!snapshot.child("views")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .exists() && System.currentTimeMillis() < snapshot.getValue(Story.class).getTimeend()){
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .exists() && System.currentTimeMillis() < snapshot.getValue(Story.class).getTimeend()){
                         i++;
                     }
                 }

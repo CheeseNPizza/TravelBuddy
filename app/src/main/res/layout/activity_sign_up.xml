@@ -38,9 +38,33 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/signup_email"
+                android:id="@+id/signup_name"
                 android:background="@drawable/custom_edittext"
                 android:layout_marginTop="40dp"
+                android:padding="8dp"
+                android:hint="Name"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/signup_username"
+                android:background="@drawable/custom_edittext"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="Username"
+                android:drawableLeft="@drawable/ic_baseline_account_circle"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/signup_email"
+                android:background="@drawable/custom_edittext"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
@@ -57,8 +81,8 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
-                android:drawablePadding="8dp"/>
-
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -68,7 +92,6 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/lavender"
                 app:cornerRadius = "20dp"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
