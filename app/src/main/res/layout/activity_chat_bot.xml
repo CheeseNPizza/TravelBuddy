@@ -5,10 +5,10 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity">
+    tools:context=".ChatBot">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/chatBotLinear"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@color/lavender"
@@ -18,7 +18,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/back"
+            android:id="@+id/botBack"
             android:layout_width="51dp"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
@@ -26,10 +26,10 @@
             android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
-            android:id="@+id/ChatName"
+            android:id="@+id/BotName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Chat Name"
+            android:text="TravelBuddy Bot"
             android:textSize="20sp"
             android:gravity="center"
             android:textColor="@color/white"
@@ -38,65 +38,42 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/msgRecycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/takePhoto"
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WELCOME to TravelBuddy Bot"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/botInputMsg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/chatBotLinear" />
 
     <EditText
-        android:id="@+id/inputMsg"
+        android:id="@+id/botInputMsg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:hint="Write message here..."
+        android:hint="Write Question here..."
         android:padding="15dp"
         android:textSize="20sp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sendMsg"
-        app:layout_constraintStart_toEndOf="@+id/takePhoto"
-        app:layout_constraintTop_toTopOf="@+id/takePhoto"
+        app:layout_constraintEnd_toStartOf="@+id/botSendMsg"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
 
     <ImageView
-        android:id="@+id/sendMsg"
+        android:id="@+id/botSendMsg"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:padding="10dp"
         android:src="@drawable/ic_baseline_send_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/inputMsg" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/takePhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:backgroundTint="@color/lavender"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
-
-    <ImageView
-        android:id="@+id/photoCaptured"
-        android:layout_width="276dp"
-        android:layout_height="347dp"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/inputMsg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+        app:layout_constraintTop_toTopOf="@+id/botInputMsg" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

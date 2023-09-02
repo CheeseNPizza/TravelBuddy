@@ -54,6 +54,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder>{
         HelperClass userModel = userList.get(position);
         if (userModel != null) {
             holder.textName.setText(userModel.getName());
+            holder.textMail.setText(userModel.getEmail());
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +74,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder>{
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView textName;
+        private TextView textName, textMail;
         private CircleImageView profileImg;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textName = itemView.findViewById(R.id.userName);
+            textMail = itemView.findViewById(R.id.userMail);
             profileImg = itemView.findViewById(R.id.userPhoto);
         }
     }

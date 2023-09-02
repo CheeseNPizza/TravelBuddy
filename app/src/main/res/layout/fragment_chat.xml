@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context=".ChatFragment">
 
     <TextView
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/search_view_bg"
+        android:textColor="@color/black"
         app:iconifiedByDefault="false"
         app:queryHint="Search User ...">
 
@@ -31,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:background="@color/white"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -39,6 +42,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/chatBot"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginBottom="5dp"

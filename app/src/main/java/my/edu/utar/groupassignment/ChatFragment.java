@@ -1,5 +1,6 @@
 package my.edu.utar.groupassignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,7 @@ public class ChatFragment extends Fragment {
     private ArrayList<HelperClass> dataList;
     private UserAdapter userAdapter;
     private RecyclerView recyclerView;
+    private LinearLayout chatBot;
 
 
     @Override
@@ -82,6 +85,17 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
+        chatBot = rootView.findViewById(R.id.chatBot);
+        chatBot.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ChatBot.class);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
     private void filterList(String text) {
@@ -98,5 +112,9 @@ public class ChatFragment extends Fragment {
         else{
             userAdapter.setFilteredList(filteredList);
         }
+    }
+
+    public UserAdapter getUserAdapter(){
+        return userAdapter;
     }
 }

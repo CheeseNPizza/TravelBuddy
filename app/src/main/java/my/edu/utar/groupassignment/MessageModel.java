@@ -4,15 +4,20 @@ public class MessageModel {
     private String msgId;
     private String senderId;
     private String message;
+    private String receiverId;
+    private long timestamp;
 
-    public MessageModel(String msgId, String senderId, String message) {
+    public MessageModel(String msgId, String senderId, String message,  String receiverId) {
         this.msgId = msgId;
         this.senderId = senderId;
         this.message = message;
+        this.receiverId = receiverId;
+        this.timestamp = System.currentTimeMillis();
     }
 
     public MessageModel() {
     }
+
 
     public String getMsgId() {
         return msgId;
@@ -36,5 +41,21 @@ public class MessageModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

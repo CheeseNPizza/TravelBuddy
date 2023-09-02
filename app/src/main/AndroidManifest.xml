@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GroupAssignment">
         <activity
+            android:name=".ChatBot"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
