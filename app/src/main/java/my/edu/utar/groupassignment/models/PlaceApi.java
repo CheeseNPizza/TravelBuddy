@@ -1,3 +1,7 @@
+/**
+ * @author Lee Teck Junn
+ * @version 1.0
+ */
 package my.edu.utar.groupassignment.models;
 
 import my.edu.utar.groupassignment.R;
