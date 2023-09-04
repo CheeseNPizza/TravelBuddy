@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
+    //Ang Wei Hen
     private void filterList(String text) {
         ArrayList<DataClass> filteredList = new ArrayList<>();
         for(DataClass item : dataList){
@@ -118,6 +119,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    //Ang Wei Hen
     private void readStory(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Story");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -151,6 +153,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    //Ang Wei Hen
     private void printStoryList() {
         for (Story story : storyList) {
             Log.d("StoryList", "Story ID: " + story.getStoryid());
