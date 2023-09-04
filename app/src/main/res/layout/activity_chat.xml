@@ -29,12 +29,24 @@
             android:id="@+id/ChatName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Chat Name"
-            android:textSize="20sp"
             android:gravity="center"
+            android:padding="10dp"
+            android:text="Chat Name"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:padding="10dp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:padding="10dp"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -89,7 +101,6 @@
         android:id="@+id/photoCaptured"
         android:layout_width="276dp"
         android:layout_height="347dp"
-        android:background="@color/white"
         android:padding="10dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/inputMsg"

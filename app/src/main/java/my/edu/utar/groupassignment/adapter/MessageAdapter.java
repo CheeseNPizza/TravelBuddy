@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
@@ -67,13 +69,35 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         MessageModel messageModel = messageList.get(position);
         if (messageModel != null) {
             if(messageModel.getSenderId().equals(FirebaseAuth.getInstance().getUid())){
-                holder.out_message.setText(messageModel.getMessage());
+                if(!messageModel.getMessage().isEmpty()){
+                    holder.out_message.setText(messageModel.getMessage());
+                    holder.out_message.setVisibility(View.VISIBLE);
+                    holder.out_image.setVisibility(View.GONE);
+                }
+                else if(!messageModel.getImageURI().isEmpty()){
+                    Glide.with(context)
+                            .load(messageModel.getImageURI()) // Replace with the actual image URL
+                            .into(holder.out_image);
+                    holder.out_image.setVisibility(View.VISIBLE);
+                    holder.out_message.setVisibility(View.GONE);
+                }
                 messageDate = new Date(messageModel.getTimestamp());
                 formatDate = sdf.format(messageDate);
                 holder.out_dt.setText(formatDate);
             }
             else{
-                holder.in_message.setText(messageModel.getMessage());
+                if(!messageModel.getMessage().isEmpty()){
+                    holder.in_message.setText(messageModel.getMessage());
+                    holder.in_message.setVisibility(View.VISIBLE);
+                    holder.in_image.setVisibility(View.GONE);
+                }
+                else if(!messageModel.getImageURI().isEmpty()){
+                    Glide.with(context)
+                            .load(messageModel.getImageURI()) // Replace with the actual image URL
+                            .into(holder.in_image);
+                    holder.in_image.setVisibility(View.VISIBLE);
+                    holder.in_message.setVisibility(View.GONE);
+                }
                 messageDate = new Date(messageModel.getTimestamp());
                 formatDate = sdf.format(messageDate);
                 holder.in_dt.setText(formatDate);
@@ -90,14 +114,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView in_message, out_message, in_dt, out_dt;
         private ConstraintLayout in_main, out_main;
+        private ImageView in_image, out_image;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             in_message = itemView.findViewById(R.id.in_message);
             in_main = itemView.findViewById(R.id.in_messageLayout);
             in_dt = itemView.findViewById(R.id.in_dt);
+            in_image = itemView.findViewById(R.id.in_image);
             out_message = itemView.findViewById(R.id.out_message);
             out_main = itemView.findViewById(R.id.out_messageLayout);
             out_dt = itemView.findViewById(R.id.out_dt);
+            out_image = itemView.findViewById(R.id.out_image);
         }
     }
 

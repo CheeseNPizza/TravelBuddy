@@ -12,7 +12,7 @@
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/drawable/out_message.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/drawable/search_view_bg.xml" value="0.1" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/activity_add_story.xml" value="0.1" />
-        <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/activity_chat.xml" value="0.16895999484375016" />
+        <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/activity_chat.xml" value="0.38399998828125037" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/activity_chat_bot.xml" value="0.1453804347826087" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/activity_detail.xml" value="0.1" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/activity_intro.xml" value="0.1" />
@@ -22,10 +22,10 @@
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/fragment_home.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/fragment_settings.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/fragment_share.xml" value="0.1453804347826087" />
-        <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/inmessage_row.xml" value="0.5145599842968755" />
+        <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/inmessage_row.xml" value="0.38399998828125037" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/message_row.xml" value="0.151268115942029" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/nav_header.xml" value="0.1" />
-        <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/outmessage_row.xml" value="0.6911999789062506" />
+        <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/outmessage_row.xml" value="0.38399998828125037" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/recycler_item.xml" value="0.1" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/story_item.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/MyHP/AndroidStudioProjects/MADGroupAss/app/src/main/res/layout/user_row.xml" value="0.5759999824218756" />
