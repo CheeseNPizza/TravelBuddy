@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:right="2dp" android:left="2dp" android:top="2dp" android:bottom="2dp">
+        <!-- Border color and width -->
+        <shape android:shape="rectangle">
+            <stroke android:width="2dp" android:color="@color/lavender" /> <!-- Set your desired border color and width here -->
+            <corners android:radius="4dp" /> <!-- Optional: Add rounded corners -->
+        </shape>
+    </item>
+</layer-list>
