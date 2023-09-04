@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TravelActivity"
-    android:background="#E6EEFA">
+    tools:context=".TravelActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,13 +22,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
+                <ImageView
+                    android:id="@+id/return_btn2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/search_background"
+                    android:backgroundTint="#E6EEFA"
+                    android:src="@drawable/return_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/text_current_location"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginStart="100dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif"
+                    android:textColor="@color/lavender"
                     android:text="Discover intresting places to visit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +82,7 @@
                     android:text="Hotels"
                     android:layout_marginStart="8dp"
                     android:drawableLeft="@drawable/hotel_icon"
-                    android:buttonTint="#5790DF"
+                    android:buttonTint="@color/lavender"
                     />
 
                 <RadioButton
@@ -82,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:buttonTint="#5790DF"
+                    android:buttonTint="@color/lavender"
                     android:checked="true"
                     android:text="Restaurants" />
 
@@ -92,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:drawableLeft="@drawable/attraction_icon"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#5790DF"
+                    android:buttonTint="@color/lavender"
                     android:layout_marginEnd="8dp"
                     android:text="Attractions" />
             </RadioGroup>

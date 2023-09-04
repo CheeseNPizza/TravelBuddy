@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntroActivity"
-    android:background="#E6EEFA">
+    android:background="@drawable/page"
+    tools:context=".IntroActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,8 +20,7 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="463dp"
-                android:src="@mipmap/splashscreen" />
+                android:layout_height="259dp" />
 
             <TextView
                 android:id="@+id/textView"
@@ -31,27 +30,28 @@
                 android:textAlignment="center"
                 android:textSize="40dp"
                 android:textStyle="bold"
-                android:textColor="#5790DF"
+                android:textColor="@color/black"
                 android:layout_marginTop="16dp"/>
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Let Enjoy The Beautiful World"
+                android:padding="8dp"
+                android:text="a social media for travellers"
                 android:textAlignment="center"
+                android:textColor="@color/send"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:padding="8dp"/>
+                android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/intro_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="250dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/intro_background">
 
                 <TextView

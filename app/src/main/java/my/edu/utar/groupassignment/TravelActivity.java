@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -97,6 +98,9 @@ public class TravelActivity extends AppCompatActivity {
                 updateView();
             }
         });
+
+        ImageView return_btn = findViewById(R.id.return_btn2);
+        return_btn.setOnClickListener(v -> finish());
     }
 
     // Method to obtain a bounding box from a given address
@@ -128,7 +132,7 @@ public class TravelActivity extends AppCompatActivity {
         double bl_longitude;
         double tr_latitude;
         double tr_longitude;
-        
+
         // Constructor to calculate a bounding box based on latitude and longitude
         BoundingBox(double lat, double lng) {
             // Calculate bounding box based on lat and lng
