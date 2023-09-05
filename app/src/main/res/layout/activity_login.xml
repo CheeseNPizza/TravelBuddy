@@ -35,31 +35,29 @@
                 android:textStyle="bold"
                 android:textColor="@color/lavender"/>
 
-          <EditText
+            <EditText
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/login_email"
-                android:background="@drawable/custom_edittext"
                 android:layout_marginTop="40dp"
-                android:padding="8dp"
-                android:hint="Email"
-                android:text="marcus1029@1utar.my"
+                android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:hint="Email"
+                android:padding="8dp"
+                android:textColor="@color/black" />
 
             <EditText
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/login_password"
-                android:background="@drawable/custom_edittext"
                 android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:hint="Password"
-                android:text="SSS29039981"
-                android:inputType="textPassword"
+                android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
-                android:drawablePadding="8dp"/>
+                android:drawablePadding="8dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="8dp" />
 
             <Button
                 android:layout_width="match_parent"

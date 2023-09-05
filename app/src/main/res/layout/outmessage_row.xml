@@ -14,21 +14,32 @@
         android:layout_height="wrap_content"
         android:background="@drawable/out_message"
         android:padding="15dp"
-        android:text="Message"
-        android:textSize="22sp"
+        android:text=""
         android:textColor="@color/black"
+        android:textSize="22sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="0dp"/>
+        app:layout_constraintWidth_max="0dp" />
 
     <TextView
         android:id="@+id/out_dt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/out_message" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/out_image"
+        android:layout_width="223dp"
+        android:layout_height="212dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        android:layout_gravity="end"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/out_message"
+        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
