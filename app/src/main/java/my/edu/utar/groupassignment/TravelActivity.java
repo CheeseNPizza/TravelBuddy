@@ -1,3 +1,7 @@
+/**
+ * @author Lee Teck Junn
+ * @version 1.0
+ */
 package my.edu.utar.groupassignment;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -45,6 +50,7 @@ import okhttp3.Response;
 
 public class TravelActivity extends AppCompatActivity {
 
+    // Member variables declaration
     private RecyclerView.Adapter placeViewAdapter;
     private RecyclerView placeRecyclerView;
     private OkHttpClient client = new OkHttpClient();
@@ -56,16 +62,20 @@ public class TravelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel);
 
+        // Initialize and set up the AutoCompleteTextView for location input
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autocomplete);
         autoCompleteTextView.setAdapter(new PlaceAutocompleteAdapter(TravelActivity.this, android.R.layout.simple_list_item_1));
 
+        // Set an item click listener for the AutoCompleteTextView
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // When a location is selected, log its address and calculate a bounding box
                 Log.d("Address : ", autoCompleteTextView.getText().toString());
                 boundingBox = getBoundingBoxFromAddress(autoCompleteTextView.getText().toString());
                 if (boundingBox != null) {
 
+                    // Log the bounding box coordinates and update the view
                     Log.d("Bottom Left: ", "Lat: " + boundingBox.bl_latitude + ", Lng: " + boundingBox.bl_longitude);
                     Log.d("Top Right: ", "Lat: " + boundingBox.tr_latitude + ", Lng: " + boundingBox.tr_longitude);
 
@@ -77,17 +87,23 @@ public class TravelActivity extends AppCompatActivity {
             }
         });
 
+        // Set up a RadioGroup for selecting categories
         RadioGroup radioGroup = findViewById(R.id.categoryGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Handle category selection when a radio button is checked
                 RadioButton selectedRadioButton = findViewById(checkedId);
                 category = selectedRadioButton.getText().toString().toLowerCase();
                 updateView();
             }
         });
+
+        ImageView return_btn = findViewById(R.id.return_btn2);
+        return_btn.setOnClickListener(v -> finish());
     }
 
+    // Method to obtain a bounding box from a given address
     private BoundingBox getBoundingBoxFromAddress(String address) {
         Geocoder geocoder = new Geocoder(TravelActivity.this);
         List<Address> addressList;
@@ -110,14 +126,16 @@ public class TravelActivity extends AppCompatActivity {
         }
     }
 
+    // Static inner class for representing a bounding box
     private static class BoundingBox {
         double bl_latitude;
         double bl_longitude;
         double tr_latitude;
         double tr_longitude;
+
+        // Constructor to calculate a bounding box based on latitude and longitude
         BoundingBox(double lat, double lng) {
             // Calculate bounding box based on lat and lng
-            // Adjust these calculations as needed for your use case
             bl_latitude = lat - 0.01;
             bl_longitude = lng - 0.01;
             tr_latitude = lat + 0.01;
@@ -125,8 +143,10 @@ public class TravelActivity extends AppCompatActivity {
         }
     }
 
+    // Method to update the view based on the selected category and bounding box
     private void updateView(){
 
+        // Define parameters based on the selected category
         String parameter = "";
         if (category.equals("hotels"))
             parameter = "&limit=6&currency=USD&subcategory=hotel%2Cbb%2Cspecialty&adults=1";
@@ -135,13 +155,14 @@ public class TravelActivity extends AppCompatActivity {
         else if (category.equals("attractions"))
             parameter = "&currency=USD&lunit=km&lang=en_US";
 
-
+        // Construct the URL for the HTTP request
         String url = "https://travel-advisor.p.rapidapi.com/" + category + "/list-in-boundary?" +
                 "bl_latitude=" + boundingBox.bl_latitude +
                 "&tr_latitude=" + boundingBox.tr_latitude +
                 "&bl_longitude=" + boundingBox.bl_longitude +
                 "&tr_longitude=" + boundingBox.tr_longitude + parameter;
 
+        // Create an HTTP request using OkHttp
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -149,6 +170,7 @@ public class TravelActivity extends AppCompatActivity {
                 .addHeader("X-RapidAPI-Host", "travel-advisor.p.rapidapi.com")
                 .build();
 
+        // Asynchronously execute the HTTP request
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -159,6 +181,7 @@ public class TravelActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()){
 
+                    // Process the response data and update the UI
                     ArrayList<Place> placeArrayList = new ArrayList<>();
 
                     try {
@@ -170,7 +193,7 @@ public class TravelActivity extends AppCompatActivity {
                             JSONObject place = placeArray.getJSONObject(i);
 
                             if (!place.has("ad_position")){
-
+                                // Extract place information from the JSON response
                                 String name = "-";
                                 if (place.has("name"))
                                     name = place.getString("name");
@@ -200,6 +223,7 @@ public class TravelActivity extends AppCompatActivity {
                                 if (place.has("web_url"))
                                     web_url = place.getString("web_url");
 
+                                // Create a Place object and add it to the list
                                 placeArrayList.add(new Place(name, rating, photo, address, price_level, description, web_url));
                             }
                         }
@@ -208,9 +232,11 @@ public class TravelActivity extends AppCompatActivity {
                         throw new RuntimeException(e);
                     }
 
+                    // Update the UI on the main (UI) thread
                     TravelActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            // Set up the RecyclerView and its adapter to display place information
                             placeRecyclerView = findViewById(R.id.place_view);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(TravelActivity.this, 2);
                             placeRecyclerView.setLayoutManager(gridLayoutManager);

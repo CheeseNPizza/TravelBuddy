@@ -1,3 +1,7 @@
+/**
+ * @author Lee Teck Junn
+ * @version 1.0
+ */
 package my.edu.utar.groupassignment.structure;
 
 import java.io.Serializable;
