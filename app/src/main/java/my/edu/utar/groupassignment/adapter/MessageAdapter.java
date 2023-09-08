@@ -1,3 +1,5 @@
+//code by Thong Wei Xin
+//adapter to display message in recyclerview
 package my.edu.utar.groupassignment.adapter;
 
 import android.content.Context;
@@ -64,10 +66,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         return new MyViewHolder(view);
     }
 
+    //load messages
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.MyViewHolder holder, int position) {
         MessageModel messageModel = messageList.get(position);
         if (messageModel != null) {
+            //current user is sender
             if(messageModel.getSenderId().equals(FirebaseAuth.getInstance().getUid())){
                 if(!messageModel.getMessage().isEmpty()){
                     holder.out_message.setText(messageModel.getMessage());
@@ -75,8 +79,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                     holder.out_image.setVisibility(View.GONE);
                 }
                 else if(!messageModel.getImageURI().isEmpty()){
+                    //load image using glide
                     Glide.with(context)
-                            .load(messageModel.getImageURI()) // Replace with the actual image URL
+                            .load(messageModel.getImageURI())
                             .into(holder.out_image);
                     holder.out_image.setVisibility(View.VISIBLE);
                     holder.out_message.setVisibility(View.GONE);
@@ -85,6 +90,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                 formatDate = sdf.format(messageDate);
                 holder.out_dt.setText(formatDate);
             }
+            //current user is receiver
             else{
                 if(!messageModel.getMessage().isEmpty()){
                     holder.in_message.setText(messageModel.getMessage());
@@ -92,8 +98,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                     holder.in_image.setVisibility(View.GONE);
                 }
                 else if(!messageModel.getImageURI().isEmpty()){
+                    //load image using glide
                     Glide.with(context)
-                            .load(messageModel.getImageURI()) // Replace with the actual image URL
+                            .load(messageModel.getImageURI())
                             .into(holder.in_image);
                     holder.in_image.setVisibility(View.VISIBLE);
                     holder.in_message.setVisibility(View.GONE);
@@ -111,6 +118,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         return messageList.size();
     }
 
+    //define holder variables
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView in_message, out_message, in_dt, out_dt;
         private ConstraintLayout in_main, out_main;
@@ -133,6 +141,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         notifyDataSetChanged();
     }
 
+    //define a method to identify message type
     public int getItemViewType(int position) {
         MessageModel messageModel = messageList.get(position);
         if (messageModel != null) {

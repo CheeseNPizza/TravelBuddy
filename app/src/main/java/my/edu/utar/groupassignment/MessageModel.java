@@ -1,3 +1,5 @@
+//code by thong wei xin
+//variables contain in a message that send to firebase or class to instantiate an object
 package my.edu.utar.groupassignment;
 
 
