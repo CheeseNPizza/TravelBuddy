@@ -1,3 +1,6 @@
+//code by thong wei xin
+//chatbot
+//call ChatGPT API to act as a chatbot
 package my.edu.utar.groupassignment;
 
 import androidx.appcompat.app.AppCompatActivity;

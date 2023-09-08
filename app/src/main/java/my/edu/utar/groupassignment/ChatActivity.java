@@ -1,3 +1,4 @@
+//code by Thong Wei Xin
 package my.edu.utar.groupassignment;
 
 import androidx.activity.result.ActivityResult;
@@ -64,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
         binding=ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //open camera
         cameraLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -89,6 +91,8 @@ public class ChatActivity extends AppCompatActivity {
         receiverId = getIntent().getStringExtra("id");
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
         storageReference = FirebaseStorage.getInstance().getReference();
+
+        //get target data using id
         dbReference.child(receiverId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -104,6 +108,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        //return activity
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +116,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
+        //define chat room id
         senderRoom = FirebaseAuth.getInstance().getUid() + receiverId;
         receiverRoom = receiverId + FirebaseAuth.getInstance().getUid();
 
@@ -123,7 +128,7 @@ public class ChatActivity extends AppCompatActivity {
         Query queryS = dbReferenceS.orderByChild("timestamp");
         dbReferenceR = FirebaseDatabase.getInstance().getReference("Chats").child(receiverRoom);
 
-
+        //add message
         queryS.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -238,7 +243,7 @@ public class ChatActivity extends AppCompatActivity {
                     public void onSuccess(Uri downloadUri) {
                         // Handle the download URL
                         imageURI = downloadUri.toString();
-
+                        //add new message to firebase
                         MessageModel msgModel = new MessageModel(msgId, FirebaseAuth.getInstance().getUid(), message, imageURI, receiverId);
                         msgAdapter.add(msgModel);
                         dbReferenceS.child(msgId).setValue(msgModel).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -252,6 +257,7 @@ public class ChatActivity extends AppCompatActivity {
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
+            //failure case
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(ChatActivity.this,"Upload failed", Toast.LENGTH_SHORT).show();

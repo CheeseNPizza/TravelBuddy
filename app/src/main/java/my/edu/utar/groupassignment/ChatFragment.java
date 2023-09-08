@@ -1,3 +1,4 @@
+//code by thong wei xin
 package my.edu.utar.groupassignment;
 
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class ChatFragment extends Fragment {
 
         searchChat = rootView.findViewById(R.id.searchChat);
         searchChat.clearFocus();
+        //search user
         searchChat.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -67,6 +69,7 @@ public class ChatFragment extends Fragment {
 
 
         dbReference = FirebaseDatabase.getInstance().getReference("Users");
+        //load user list
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,6 +101,7 @@ public class ChatFragment extends Fragment {
 
         return rootView;
     }
+    //filter  by dat enter
     private void filterList(String text) {
         ArrayList<HelperClass> filteredList = new ArrayList<>();
         for(HelperClass item : dataList){

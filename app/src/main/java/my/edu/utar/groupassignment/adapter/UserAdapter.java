@@ -1,3 +1,5 @@
+//code by thong wei xin
+//model to display user list in recyclerview
 package my.edu.utar.groupassignment.adapter;
 
 import android.content.Context;
@@ -26,16 +28,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder>{
     private Context context;
     private ArrayList<HelperClass> userList;
 
+    //model
     public UserAdapter(Context context, ArrayList<HelperClass> dataList){
         this.context = context;
         this.userList = dataList;
     }
 
+    //add into list
     public void add(HelperClass helperClass){
         userList.add(helperClass);
         notifyDataSetChanged();
     }
 
+    //clear list
     public void clear(){
         userList.clear();
         notifyDataSetChanged();
@@ -57,6 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder>{
             holder.textMail.setText(userModel.getEmail());
         }
 
+        //define listener when user click on the user list item
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +74,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder>{
 
     }
 
+    //get size of user list
     @Override
     public int getItemCount() {
         return userList.size();
