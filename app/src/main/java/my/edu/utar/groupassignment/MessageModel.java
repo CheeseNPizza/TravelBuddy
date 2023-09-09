@@ -4,6 +4,7 @@ package my.edu.utar.groupassignment;
 
 
 public class MessageModel {
+    //define variables in a class
     private String msgId;
     private String senderId;
     private String message;
@@ -11,6 +12,7 @@ public class MessageModel {
     private String receiverId;
     private long timestamp;
 
+    //constructor
     public MessageModel(String msgId, String senderId, String message, String imageURI,  String receiverId) {
         this.msgId = msgId;
         this.senderId = senderId;

@@ -42,11 +42,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         this.messageList = new ArrayList<>();
     }
 
+    //add message
     public void add(MessageModel messageModel){
         messageList.add(messageModel);
         notifyDataSetChanged();
     }
 
+    //clear all message
     public void clear(){
         messageList.clear();
         notifyDataSetChanged();
@@ -73,12 +75,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         if (messageModel != null) {
             //current user is sender
             if(messageModel.getSenderId().equals(FirebaseAuth.getInstance().getUid())){
-                if(!messageModel.getMessage().isEmpty()){
+                if(messageModel.getMessage() != null){
                     holder.out_message.setText(messageModel.getMessage());
                     holder.out_message.setVisibility(View.VISIBLE);
                     holder.out_image.setVisibility(View.GONE);
                 }
-                else if(!messageModel.getImageURI().isEmpty()){
+                else if(messageModel.getImageURI() != null){
                     //load image using glide
                     Glide.with(context)
                             .load(messageModel.getImageURI())
@@ -87,17 +89,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
                     holder.out_message.setVisibility(View.GONE);
                 }
                 messageDate = new Date(messageModel.getTimestamp());
+                //format timestamp
                 formatDate = sdf.format(messageDate);
                 holder.out_dt.setText(formatDate);
             }
             //current user is receiver
             else{
-                if(!messageModel.getMessage().isEmpty()){
+                if(messageModel.getMessage() != null){
                     holder.in_message.setText(messageModel.getMessage());
                     holder.in_message.setVisibility(View.VISIBLE);
                     holder.in_image.setVisibility(View.GONE);
                 }
-                else if(!messageModel.getImageURI().isEmpty()){
+                else if(messageModel.getImageURI() != null){
                     //load image using glide
                     Glide.with(context)
                             .load(messageModel.getImageURI())
