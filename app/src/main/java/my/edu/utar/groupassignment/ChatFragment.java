@@ -74,6 +74,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userAdapter.clear();
+                //loop through all data found
                 for(DataSnapshot dataSnap:snapshot.getChildren()){
                     String UID = dataSnap.getKey();
                     if(!UID.equals(FirebaseAuth.getInstance().getUid())){
@@ -110,8 +111,9 @@ public class ChatFragment extends Fragment {
             }
         }
 
+        //no user found
         if(filteredList.isEmpty()){
-            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No user found", Toast.LENGTH_SHORT).show();
         }
         else{
             userAdapter.setFilteredList(filteredList);

@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
         binding=ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         //open camera
         cameraLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -79,10 +80,17 @@ public class ChatActivity extends AppCompatActivity {
                                 Bitmap capturedImage = (Bitmap) data.getExtras().get("data");
                                 binding.photoCaptured.setImageBitmap(capturedImage);
 
+                                //disable input message
                                 binding.inputMsg.setEnabled(false);
+                                //visible the imageview
                                 binding.photoCaptured.setVisibility(View.VISIBLE);
 
                             }
+                        }
+                        else if (result.getResultCode() == Activity.RESULT_CANCELED) {
+                            // Handle the case when the user cancels the camera operation
+                            binding.takePhoto.setClickable(true);
+                            Toast.makeText(getApplicationContext(), "Camera operation canceled", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -97,6 +105,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    //get data in firebase
                     HelperClass receiverModel = dataSnapshot.getValue(HelperClass.class);
                     binding.ChatName.setText(receiverModel.getName());
                 }
@@ -121,10 +130,12 @@ public class ChatActivity extends AppCompatActivity {
         receiverRoom = receiverId + FirebaseAuth.getInstance().getUid();
 
         msgAdapter = new MessageAdapter(this);
+        //set message list
         binding.msgRecycler.setAdapter(msgAdapter);
         binding.msgRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         dbReferenceS = FirebaseDatabase.getInstance().getReference("Chats").child(senderRoom);
+        //arrange message according to timestamp
         Query queryS = dbReferenceS.orderByChild("timestamp");
         dbReferenceR = FirebaseDatabase.getInstance().getReference("Chats").child(receiverRoom);
 
@@ -133,10 +144,13 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 msgAdapter.clear();
+                //loop through all data inside firebase
                 for(DataSnapshot datasnap:snapshot.getChildren()){
                     MessageModel msgModel = datasnap.getValue(MessageModel.class);
                     msgAdapter.add(msgModel);
                 }
+                // Scroll to the bottom of the RecyclerView
+                binding.msgRecycler.scrollToPosition(msgAdapter.getItemCount() - 1);
             }
 
             @Override
@@ -160,13 +174,14 @@ public class ChatActivity extends AppCompatActivity {
                                 DatabaseReference nodeToDeleteRef;
                                 // User clicked "Yes," perform the action
                                 if(FirebaseAuth.getInstance().getUid() != receiverId){
-                                    // Create a reference to the specific node using the child() method
+                                    // Create a reference to the senderId
                                     nodeToDeleteRef = dbReferenceS;
                                 }
                                 else{
-                                    // Create a reference to the specific node using the child() method
+                                    // Create a reference to the receiverId
                                     nodeToDeleteRef = dbReferenceR;
                                 }
+                                //delete conversation data on one side
                                 nodeToDeleteRef.removeValue()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -199,13 +214,20 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = binding.inputMsg.getText().toString();
-                Bitmap image = drawableToBitmap(binding.photoCaptured.getDrawable());
+                Bitmap image = null;
+                if(binding.photoCaptured.getDrawable() != null) {
+                    //convert to bitmap
+                    image = drawableToBitmap(binding.photoCaptured.getDrawable());
+                }
                 if(message.trim().length() > 0 || image != null){
-                        sendMessage(message, image);
+                    sendMessage(message, image);
                 }
 
-                binding.photoCaptured.setImageResource(0);
-                binding.inputMsg.setText("");
+                //clear all input
+                binding.inputMsg.setText(null);
+                binding.photoCaptured.setImageDrawable(null);
+                binding.inputMsg.setEnabled(true);
+                binding.takePhoto.setClickable(true);
             }
         });
 
@@ -216,7 +238,7 @@ public class ChatActivity extends AppCompatActivity {
                 if(ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(ChatActivity.this, new String[] {Manifest.permission.CAMERA}, 101);
                 }
-
+                binding.inputMsg.setText(null);
                 binding.takePhoto.setClickable(false);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 cameraLauncher.launch(intent);
@@ -231,43 +253,61 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage(String message, Bitmap image) {
         String msgId = UUID.randomUUID().toString();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-        final StorageReference imageReference = storageReference.child(System.currentTimeMillis() + ".JPEG");
-        imageReference.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // Get the download URL of the uploaded image
-                imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri downloadUri) {
-                        // Handle the download URL
-                        imageURI = downloadUri.toString();
-                        //add new message to firebase
-                        MessageModel msgModel = new MessageModel(msgId, FirebaseAuth.getInstance().getUid(), message, imageURI, receiverId);
-                        msgAdapter.add(msgModel);
-                        dbReferenceS.child(msgId).setValue(msgModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(ChatActivity.this,"Message sent", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        dbReferenceR.child(msgId).setValue(msgModel);
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            //failure case
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ChatActivity.this,"Upload failed", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(image != null){
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+            final StorageReference imageReference = storageReference.child(System.currentTimeMillis() + ".JPEG");
+            imageReference.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // Get the download URL of the uploaded image
+                    imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri downloadUri) {
+                            // Handle the download URL
+                            imageURI = downloadUri.toString();
+                            //add new message to firebase
+                            MessageModel msgModel = new MessageModel(msgId, FirebaseAuth.getInstance().getUid(), null, imageURI, receiverId);
+                            msgAdapter.add(msgModel);
+                            dbReferenceS.child(msgId).setValue(msgModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(ChatActivity.this,"Image sent", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            dbReferenceR.child(msgId).setValue(msgModel);
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                //failure case
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(ChatActivity.this,"Upload failed", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+        }
+        else if(message != null){
+            MessageModel msgModel = new MessageModel(msgId, FirebaseAuth.getInstance().getUid(), message, null, receiverId);
+            msgAdapter.add(msgModel);
+            dbReferenceS.child(msgId).setValue(msgModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(ChatActivity.this,"Message sent", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dbReferenceR.child(msgId).setValue(msgModel);
+        }
+
 
     }
 
     //Define a method to convert a Drawable to a Bitmap
     public static Bitmap drawableToBitmap(Drawable drawable) {
+        if(drawable == null){
+            return null;
+        }
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
         }
